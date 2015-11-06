@@ -1,0 +1,21 @@
+<!doctype html>
+<html ng-app="sandwichbarApp">
+	<head>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.js"></script>
+		<script src="js/controllers/sandwichcontroller.js"></script>
+	</head>
+	<body>
+		<h1>Welcome to the Sandwich bar!</h1>
+		<div ng-controller="sandwichController">
+		<ul>
+			<li ng-repeat="sandwich in Sandwiches">
+				{{sandwich.Name}} {{sandwich.Price}}€
+			</li>
+		</ul>
+		<form ng-submit="PlaceOrder(sandwich)">
+			<input type="text" placeholder="Add sandwich Name here" ng-model="sandwich.Name">
+			<input type="text" placeholder="Add sandwich Price here" ng-model="sandwich.Price">
+			<button type="submit">Place order</button>
+		</form>
+	</body>
+</html>
