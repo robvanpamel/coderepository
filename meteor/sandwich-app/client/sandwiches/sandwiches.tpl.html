@@ -1,0 +1,11 @@
+<template name="sandwiches">
+    <!-- the sandwiches template --> 
+    {{#each sandwiches}}
+        <li>
+            <div class="sandwich">
+                <span>{{this.name}}</span>
+                <span>{{this.price}}</span>                
+            </div>
+        </li>
+    {{/each}}
+</template>
