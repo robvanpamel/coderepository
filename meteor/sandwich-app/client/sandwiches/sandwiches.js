@@ -1,7 +1,7 @@
-Meteor.subscribe("sandwichService");
+Meteor.subscribe("sandwiches");
 
 function sandwiches(){
-    return SandwichService.find();
+    return Sandwiches.find();
 }
 
 Template.sandwiches.helpers({

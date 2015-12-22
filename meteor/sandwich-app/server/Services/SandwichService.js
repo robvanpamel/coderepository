@@ -1,6 +1,4 @@
 if (Meteor.isServer) { 
-    Sandwiches = new Mongo.Collection('sandwiches');
-    
     SandwichService = {
         listSandwiches: function(){ 
             console.log('returning list of sandwiches')
@@ -11,6 +9,7 @@ if (Meteor.isServer) {
             
             return result; 
         },
+
         // only expose when searching with a min of 3 search characters    
         searchSandwiches: function(searchTerm){
             if (searchTerm.length >= 3){
@@ -27,8 +26,8 @@ if (Meteor.isServer) {
         }    
     }
 
-    Meteor.publish('sandwichService', function() {
-        return SandwichService.listSandwiches;
+    Meteor.publish('sandwiches', function() {
+        return SandwichService.listSandwiches();
     });
 
     Meteor.methods({

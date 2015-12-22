@@ -18,7 +18,5 @@ ecmascript              # Enable ECMAScript2015+ syntax in app code
 
 less
 nemo64:bootstrap
-autopublish
-insecure
 sanjo:jasmine
 velocity:console-reporter
