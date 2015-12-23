@@ -1,38 +1,34 @@
-if (Meteor.isServer) { 
-    SandwichService = {
-        listSandwiches: function(){ 
-            console.log('returning list of sandwiches')
-            // var result = Sandwiches.find({}, {sort:{name:1}}).toArray();
-            var result = Sandwiches.find({});
-            
-            console.log('sandwiches length: '+ result.count())
-            
-            return result; 
-        },
+function SandwichesService(){};
 
-        // only expose when searching with a min of 3 search characters    
-        searchSandwiches: function(searchTerm){
-            if (searchTerm.length >= 3){
-                return Sandwiches.find({name: searchTerm + '.*'}, {sort:{name:1}, limit:10});    
-            }
-            return null
-        },
-        
-        addSandwich: function(sandwich){
-            console.log('adding sandwich \r\nname: ' + sandwich.name + ' price: ' + sandwich.price +'\r\n ');
-            console.log('Before: ' + Sandwiches.find({}).count());
-            Sandwiches.insert(sandwich);
-            console.log('After: ' + Sandwiches.find({}).count());
-        }    
-    }
+SandwichesService.prototype.listSandwiches = function() {
+  console.log('returning list of sandwiches')
+  var result = Sandwiches.find({});
+  return result;
+};
 
-    Meteor.publish('sandwiches', function() {
-        return SandwichService.listSandwiches();
-    });
+SandwichesService.prototype.searchSandwiches = function(searchTerm) {
+  if (searchTerm.length >= 3){
+    return Sandwiches.find({name: searchTerm + '.*'}, {sort:{name:1}, limit:10});
+  }
+  return null
+};
 
-    Meteor.methods({
-        addSandwich: function (sandwich) {
-            SandwichService.addSandwich(sandwich);
-        }
-    });
-}
+SandwichesService.prototype.addSandwich = function(sandwich) {
+  console.log('adding sandwich \r\nname: ' + sandwich.name + ' price: ' + sandwich.price +'\r\n ');
+  console.log('Before: ' + Sandwiches.find({}).count());
+  Sandwiches.insert(sandwich);
+  console.log('After: ' + Sandwiches.find({}).count());
+};
+
+Meteor.publish('sandwiches', function() {
+  var service = new SandwichesService();
+  return service.listSandwiches();
+});
+
+Meteor.methods({
+  'addSandwich': function (sandwich) {
+    var service = new SandwichesService();
+    service.addSandwich(sandwich);
+    return true;
+  }
+});

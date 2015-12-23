@@ -18,5 +18,7 @@ ecmascript              # Enable ECMAScript2015+ syntax in app code
 
 less
 nemo64:bootstrap
-sanjo:jasmine
 velocity:console-reporter
+velocity:html-reporter
+practicalmeteor:sinon
+sanjo:jasmine
