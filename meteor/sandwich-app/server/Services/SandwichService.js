@@ -1,7 +1,6 @@
 function SandwichesService(){};
 
 SandwichesService.prototype.listSandwiches = function() {
-  console.log('returning list of sandwiches')
   var result = Sandwiches.find({});
   return result;
 };
@@ -32,3 +31,23 @@ Meteor.methods({
     return true;
   }
 });
+
+SandwichService = {
+  listSandwiches: function(){
+    console.log('returning list of sandwiches')
+    var result = Sandwiches.find({});
+    return result;
+  },
+  searchSandwiches: function(searchTerm) {
+    if (searchTerm.length >= 3){
+      return Sandwiches.find({name: searchTerm + '.*'}, {sort:{name:1}, limit:10});
+    }
+    return null
+  }
+};
+
+MyServiceToTest = {
+  helloWorld: function(){
+    return "hello world";
+  }
+};
