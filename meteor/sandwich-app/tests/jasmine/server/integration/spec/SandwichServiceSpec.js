@@ -24,25 +24,28 @@ describe('SandwichService', function() {
   });
 });
 
-describe('SandwichService - ', function() {
-  it('searchSandwiches, should return the sandwiches that match the searchterm', function() {
-    // arrange
-    var mock = [
-      {text:"testSandwich", price:"12€"},
-      {text:"mySandwich2", price:"12€"}
-    ];
-    spyOn(Sandwiches, 'find').and.returnValue(mock);
-    var expected = [ {text:"testSandwich", price:"12€"}];
+describe('When searching in the sandwich Service ', function() {
+  var expectedSearchResult = [
+    {text:"testSandwich", price:"12€"},
+    {text:"mySandwich2", price:"12€"}
+  ];
+  var spyFindEvent;
+  var actualSearchResult;
+  beforeEach(function(){
+    spyFindEvent = spyOn(Sandwiches, 'find').and.returnValue(expectedSearchResult);
+    actualSearchResult = SandwichService.searchSandwiches("searchTerm")
+  });
 
-    // act
-    var actual = SandwichService.searchSandwiches("test2")
-
-    // assert
-    expect(actual).toBe(expected);
+  it('should pass the searchterm with a wildward to the searchCriteria of the Find object ', function() {
+    expect(spyFindEvent).toHaveBeenCalled();
+    expect(spyFindEvent.calls.first().args[0].name).toBe("searchTerm.*");
+  });
+  it("should pass the searchResult without tamperingwith it ", function(){
+    expect(actualSearchResult).toBe(expectedSearchResult);
   });
 });
 
-describe('When adding a SandwichService ', function() {
+describe('When adding a Sandwich to the sandwich Service ', function() {
   var mySandwich = { text: "mySandwich", price:"1€"};
   var spyEvent;
   var actual;
