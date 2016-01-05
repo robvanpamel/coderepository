@@ -10,12 +10,12 @@
 		<div ng-controller="sandwichController">
 		<ul>
 			<li ng-repeat="sandwich in Sandwiches">
-				{{sandwich.Name}} {{sandwich.Price}}€
+				{{sandwich.name}} {{sandwich.price | currency}}
 			</li>
 		</ul>
-		<form ng-submit="PlaceOrder(sandwich)">
-			<input type="text" placeholder="Add sandwich Name here" ng-model="sandwich.Name">
-			<input type="text" placeholder="Add sandwich Price here" ng-model="sandwich.Price">
+		<form ng-submit="PlaceOrder()">
+			<input type="text" placeholder="Add sandwich Name here" ng-model="name">
+			<input type="text" placeholder="Add sandwich Price here" ng-model="price">
 			<button type="submit">Place order</button>
 		</form>
 	</body>

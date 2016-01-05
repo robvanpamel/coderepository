@@ -1,0 +1,16 @@
+#!/usr/bin/env node
+console.log("starting the application");
+var app = require('../../app.js');
+
+console.log("starting the models");
+var models = require("../models");
+
+app.set('port', process.env.PORT || 3000);
+
+models.sequelize.sync({
+    force: true
+}).then(function () {
+  var server = app.listen(app.get('port'), function() {
+    console.log('Express server listening on port ' + server.address().port);
+  });
+});

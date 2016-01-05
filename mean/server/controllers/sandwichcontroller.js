@@ -1,25 +1,24 @@
-var sandwiches =  [
-		{
-			Name:"Martino",
-			Price:2.5
-		},
-		{
-			Name:"Club",
-			Price:2.5
-		},
-		{
-			Name:"Kaas",
-			Price:2.0
-		}
-	];
+var model = require('../models/').Sandwiches;
 
-module.exports.index = function(req, res){
-	res.json(sandwiches);
+var fetchSandwiches = function(req, res){
+	var sandwiches = model.findAll().then(function(sandwiches) {
+		res.json(sandwiches);
+	})
 };
 
-module.exports.save = function(req,res){
-	console.log("saving a sandwich"+req);
-	
-	sandwiches.push( {Name:req.Name, Price: req.Price});
-	res.json(req.body);
+var saveSandwiches = function(req,res){
+	var name = req.body.name;
+	var price = req.body.price;
+	// sync to database
+	var sandwich = model.build({name:name, price:price});
+	sandwich.save().then(function(sandwich) {
+		console.log("value saved");
+		res.json(sandwich);
+	}).catch(function(err){
+		console.log(err);
+	});
+	//res.json(sandwich);
 };
+
+module.exports.index = fetchSandwiches;
+module.exports.save = saveSandwiches;

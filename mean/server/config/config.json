@@ -1,0 +1,16 @@
+{
+  "development-mysql":{
+      "username":"sa",
+      "password":"dsds1581",
+      "database":"sandwichapp",
+      "host":"127.0.0.1",
+      "dialect":"mysql"
+  },
+  "development-mssql":{
+    "username":"sa",
+    "password":"dsds1581",
+    "database":"sandwichapp",
+    "host":"127.0.0.1",
+    "dialect":"mssql"
+  }
+}
